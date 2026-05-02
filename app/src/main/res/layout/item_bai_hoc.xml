@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vungBaiHoc"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/nen_muc_san_sang"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imgIconBaiHoc"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/nen_icon_hinh_tron"
+        android:backgroundTint="#DBEAFE"
+        android:padding="8dp"
+        android:src="@android:drawable/ic_menu_share"
+        app:tint="#1D4ED8" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTrangThai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SẴN SÀNG"
+            android:textColor="#1A73E8"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtTenBaiHoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bài 2: Gia đình"
+            android:textColor="#111827"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtSoTu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 từ"
+            android:textColor="#6B7280"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btnHoc"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:background="@drawable/nen_nut_mau_xanh"
+        android:gravity="center"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="HỌC"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
