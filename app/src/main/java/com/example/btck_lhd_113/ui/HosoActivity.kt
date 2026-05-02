@@ -8,9 +8,12 @@ import com.example.btck_lhd_113.repository.*
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.example.btck_lhd_113.repository.FirebaseRepository
 
 class HosoActivity : AppCompatActivity() {
 
@@ -22,6 +25,10 @@ class HosoActivity : AppCompatActivity() {
     private lateinit var btnDangXuat: LinearLayout
     private lateinit var tabTrangChu: LinearLayout
     private lateinit var tabTienDo: LinearLayout
+    private lateinit var tvHoTen: TextView
+
+    private val auth = FirebaseAuth.getInstance()
+    private val repo = FirebaseRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +36,7 @@ class HosoActivity : AppCompatActivity() {
 
         initViews()      // Kết nối view
         setupListeners()  // Cài đặt sự kiện
+        loadUserData()    // Tải thông tin người dùng
     }
 
     private fun initViews() {
@@ -39,12 +47,22 @@ class HosoActivity : AppCompatActivity() {
         btnDangXuat        = findViewById(R.id.hoSo_btnDangXuat)
         tabTrangChu        = findViewById(R.id.hoSo_tabTrangChu)
         tabTienDo          = findViewById(R.id.hoSo_tabTienDo)
+        tvHoTen            = findViewById(R.id.hoSo_tvHoTen)
+    }
+
+    private fun loadUserData() {
+        val uid = auth.currentUser?.uid ?: return
+        repo.getUser(uid) { user ->
+            if (user != null) {
+                tvHoTen.text = user.hoten
+            }
+        }
     }
 
     private fun setupListeners() {
-        // Thông tin cá nhân
+        // Thông tin cá nhân (Cho phép đổi tên)
         itemThongTinCaNhan.setOnClickListener {
-            Toast.makeText(this, "Tính năng Thông tin cá nhân đang phát triển", Toast.LENGTH_SHORT).show()
+            hienThiDialogDoiTen()
         }
 
         // Đổi mật khẩu
@@ -57,10 +75,10 @@ class HosoActivity : AppCompatActivity() {
             Toast.makeText(this, "Tính năng Thông báo đang phát triển", Toast.LENGTH_SHORT).show()
         }
 
-        // Chọn ngôn ngữ
         itemNgonNgu.setOnClickListener {
-            hienThiDialogChonNgonNgu()
+            Toast.makeText(this,"Tính năng Thông báo đang phát triển", Toast.LENGTH_SHORT).show()
         }
+
 
         // Đăng xuất
         btnDangXuat.setOnClickListener {
@@ -77,16 +95,32 @@ class HosoActivity : AppCompatActivity() {
 
         // Bottom Navigation: Tiến độ
         tabTienDo.setOnClickListener {
-            Toast.makeText(this, "Màn hình Tiến độ đang phát triển", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, TienDoActivity::class.java))
+            finish()
         }
     }
 
-    private fun hienThiDialogChonNgonNgu() {
-        val dsNgonNgu = arrayOf("Tiếng Việt", "English", "日本語", "中文")
+    private fun hienThiDialogDoiTen() {
+        val uid = auth.currentUser?.uid ?: return
+        val edt = android.widget.EditText(this)
+        edt.setText(tvHoTen.text)
+        
         AlertDialog.Builder(this)
-            .setTitle("Chọn ngôn ngữ hiển thị")
-            .setItems(dsNgonNgu) { _, viTri ->
-                Toast.makeText(this, "Đã chọn: ${dsNgonNgu[viTri]}", Toast.LENGTH_SHORT).show()
+            .setTitle("Đổi họ tên")
+            .setView(edt)
+            .setPositiveButton("Lưu") { _, _ ->
+                val tenMoi = edt.text.toString().trim()
+                if (tenMoi.isNotEmpty()) {
+                    repo.getUser(uid) { user ->
+                        if (user != null) {
+                            val newUser = user.copy(hoten = tenMoi)
+                            repo.saveUser(newUser) {
+                                tvHoTen.text = tenMoi
+                                Toast.makeText(this, "Đã cập nhật tên!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
             }
             .setNegativeButton("Hủy", null)
             .show()
@@ -97,6 +131,7 @@ class HosoActivity : AppCompatActivity() {
             .setTitle("Đăng xuất")
             .setMessage("Bạn có chắc chắn muốn đăng xuất không?")
             .setPositiveButton("Đăng xuất") { _, _ ->
+                auth.signOut()
                 val intent = Intent(this, DangnhapActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)

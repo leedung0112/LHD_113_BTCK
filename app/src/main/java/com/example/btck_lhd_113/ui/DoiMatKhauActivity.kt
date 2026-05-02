@@ -13,6 +13,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+
 class DoiMatKhauActivity : AppCompatActivity() {
 
     // Khai báo view
@@ -22,6 +25,8 @@ class DoiMatKhauActivity : AppCompatActivity() {
     private lateinit var btnLuuMatKhau: Button
     private lateinit var tvHuyBo: TextView
     private lateinit var imgBack: ImageView
+
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +63,6 @@ class DoiMatKhauActivity : AppCompatActivity() {
         val matKhauMoi = edtMatKhauMoi.text.toString().trim()
         val nhapLai = edtNhapLaiMatKhauMoi.text.toString().trim()
 
-        // Kiểm tra dữ liệu
         if (matKhauCu.isEmpty() || matKhauMoi.isEmpty() || nhapLai.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
             return
@@ -74,8 +78,21 @@ class DoiMatKhauActivity : AppCompatActivity() {
             return
         }
 
-        // Giả lập lưu thành công
-        Toast.makeText(this, "Đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show()
-        finish()
+        val user = auth.currentUser
+        if (user != null && user.email != null) {
+            val credential = EmailAuthProvider.getCredential(user.email!!, matKhauCu)
+            
+            // Xác thực lại trước khi đổi mật khẩu
+            user.reauthenticate(credential).addOnSuccessListener {
+                user.updatePassword(matKhauMoi).addOnSuccessListener {
+                    Toast.makeText(this, "Đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show()
+                    finish()
+                }.addOnFailureListener {
+                    Toast.makeText(this, "Lỗi cập nhật: ${it.message}", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener {
+                Toast.makeText(this, "Mật khẩu cũ không chính xác", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

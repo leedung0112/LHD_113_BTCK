@@ -53,7 +53,7 @@ class ChitietbaihocActivity : AppCompatActivity() {
             Toast.makeText(this, "Chuyển sang làm bài tập", Toast.LENGTH_SHORT).show()
             // Kiểm tra xem QuizActivity có tồn tại không trước khi gọi
             try {
-                startActivity(Intent(this, QuizActivity::class.java))
+                startActivity(Intent(this, TracNghiemActivity::class.java))
             } catch (e: Exception) {
                 Toast.makeText(this, "Màn hình bài tập đang được phát triển", Toast.LENGTH_SHORT).show()
             }

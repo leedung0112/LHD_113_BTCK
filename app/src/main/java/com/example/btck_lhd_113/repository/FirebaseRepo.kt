@@ -35,4 +35,21 @@ class FirebaseRepository {
         db.collection("nguoi_dung").document(user.uid).set(user)
             .addOnSuccessListener { onDone() }
     }
+
+    // Cập nhật tiến độ bài học (Thêm ID bài học vào danh sách đã học)
+    fun addProgress(uid: String, idBai: Int) {
+        val ref = db.collection("nguoi_dung").document(uid)
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(ref)
+            val user = snapshot.toObject(NguoiDungModel::class.java)
+            if (user != null) {
+                val currentProgress = user.tien_do.toMutableList()
+                if (!currentProgress.contains(idBai)) {
+                    currentProgress.add(idBai)
+                    transaction.update(ref, "tien_do", currentProgress)
+                }
+            }
+            null
+        }
+    }
 }

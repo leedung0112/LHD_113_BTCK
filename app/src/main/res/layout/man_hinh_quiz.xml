@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8FAFF"
-    tools:context=".TracNghiemActivity">
+    tools:context=".ui.TracNghiemActivity">
 
     <!-- Thanh tiêu đề (Header) -->
     <ImageView

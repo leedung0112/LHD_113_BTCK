@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.text.InputType
+import com.google.firebase.auth.FirebaseAuth
 
 class DangnhapActivity : AppCompatActivity() {
 
@@ -25,6 +26,7 @@ class DangnhapActivity : AppCompatActivity() {
     private lateinit var tvDangKyNgay: TextView
     private lateinit var imgBack: ImageView
 
+    private val auth = FirebaseAuth.getInstance()
     private var isPasswordVisible = false // Trạng thái ẩn/hiện mật khẩu
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,16 +70,21 @@ class DangnhapActivity : AppCompatActivity() {
 
         // Xử lý khi bấm nút Đăng nhập
         btnDangNhap.setOnClickListener {
-            val taiKhoan = edtTaiKhoan.text.toString().trim()
+            val email = edtTaiKhoan.text.toString().trim()
             val matKhau = edtMatKhau.text.toString().trim()
 
-            if (taiKhoan.isEmpty() || matKhau.isEmpty()) {
+            if (email.isEmpty() || matKhau.isEmpty()) {
                 Toast.makeText(this, "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show()
             } else {
-                // Giả lập đăng nhập thành công
-                Toast.makeText(this, "Chào mừng $taiKhoan quay lại!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, TrangchuActivity::class.java))
-                finish()
+                auth.signInWithEmailAndPassword(email, matKhau)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, TrangchuActivity::class.java))
+                        finish()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Lỗi: ${it.message}", Toast.LENGTH_SHORT).show()
+                    }
             }
         }
     }

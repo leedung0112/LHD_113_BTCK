@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8FAFC"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".ui.DangkyActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,8 +24,7 @@
             android:focusable="true"
             android:padding="4dp"
             android:src="@android:drawable/ic_menu_revert"
-            app:tint="#1A73E8"
-            xmlns:app="http://schemas.android.com/apk/res-auto" />
+            app:tint="#1A73E8" />
 
         <!-- Tiêu đề LingoPro -->
         <TextView

@@ -19,22 +19,38 @@ class DangkyActivity : AppCompatActivity() {
         setContentView(R.layout.man_hinh_dang_ky)
 
         findViewById<Button>(R.id.btnTaoTaiKhoan).setOnClickListener {
-            val hoTen = findViewById<EditText>(R.id.edtHoTen).text.toString()
-            val email = findViewById<EditText>(R.id.edtTaiKhoan).text.toString()
-            val pass = findViewById<EditText>(R.id.edtMatKhau).text.toString()
+            val hoTen = findViewById<EditText>(R.id.edtHoTen).text.toString().trim()
+            val email = findViewById<EditText>(R.id.edtTaiKhoan).text.toString().trim()
+            val pass = findViewById<EditText>(R.id.edtMatKhau).text.toString().trim()
+            val rePass = findViewById<EditText>(R.id.edtNhapLaiMatKhau).text.toString().trim()
 
-            if (hoTen.isEmpty() || email.isEmpty() || pass.isEmpty()) return@setOnClickListener
+            if (hoTen.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+                Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (pass != rePass) {
+                Toast.makeText(this, "Mật khẩu nhập lại không khớp", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             auth.createUserWithEmailAndPassword(email, pass).addOnSuccessListener { res ->
                 val user = NguoiDungModel(res.user?.uid ?: "", hoTen, email, listOf())
                 repo.saveUser(user) {
-                    Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, TrangchuActivity::class.java))
+                    Toast.makeText(this, "Đăng ký thành công! Mời bạn đăng nhập", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(this, DangnhapActivity::class.java))
                     finish()
                 }
-            }.addOnFailureListener { Toast.makeText(this, "Lỗi: ${it.message}", Toast.LENGTH_SHORT).show() }
+            }.addOnFailureListener { 
+                Toast.makeText(this, "Lỗi: ${it.message}", Toast.LENGTH_LONG).show() 
+            }
         }
 
         findViewById<ImageView>(R.id.imgBack).setOnClickListener { finish() }
+
+        findViewById<TextView>(R.id.tvDangNhapNgay).setOnClickListener {
+            startActivity(Intent(this, DangnhapActivity::class.java))
+            finish()
+        }
     }
 }

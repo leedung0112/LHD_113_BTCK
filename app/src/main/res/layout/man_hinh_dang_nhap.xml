@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8FAFC"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".ui.DangnhapActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:background="@drawable/nen_goc_24" android:backgroundTint="#F3F5F9"
+            android:background="@drawable/nen_bo_goc_24" android:backgroundTint="#F3F5F9"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -95,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/nen_goc_12"
+                android:background="@drawable/nen_bo_goc_12"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="16dp"
@@ -105,7 +108,6 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@android:drawable/ic_menu_myplaces"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     app:tint="#9CA3AF" />
 
                 <EditText
@@ -135,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/nen_goc_12"
+                android:background="@drawable/nen_bo_goc_12"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingStart="16dp"

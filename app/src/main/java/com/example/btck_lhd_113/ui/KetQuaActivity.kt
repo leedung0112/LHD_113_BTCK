@@ -11,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.google.firebase.auth.FirebaseAuth
 
 class KetQuaActivity : AppCompatActivity() {
 
@@ -20,6 +21,9 @@ class KetQuaActivity : AppCompatActivity() {
     private lateinit var btnLamLai: AppCompatButton
     private lateinit var btnVeTrangChu: AppCompatButton
     private lateinit var txtChucMung: TextView
+
+    private val repo = FirebaseRepository()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +49,10 @@ class KetQuaActivity : AppCompatActivity() {
 
         if (phanTram >= 80) {
             txtChucMung.text = "Tuyệt vời!"
+            auth.currentUser?.uid?.let { repo.addProgress(it, idBaiHoc) }
         } else if (phanTram >= 50) {
             txtChucMung.text = "Làm tốt lắm!"
+            auth.currentUser?.uid?.let { repo.addProgress(it, idBaiHoc) }
         } else {
             txtChucMung.text = "Cố gắng lên!"
         }
