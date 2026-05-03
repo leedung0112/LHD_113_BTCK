@@ -47,8 +47,19 @@ class HocTuVungActivity : AppCompatActivity() {
     }
 
     private fun hienThi(pos: Int) {
-        findViewById<TextView>(R.id.tvWord).text = dsTuVung[pos].tu
-        findViewById<TextView>(R.id.tvMeaning).text = dsTuVung[pos].nghia
+        val item = dsTuVung[pos]
+        findViewById<TextView>(R.id.tvWord).text = item.tu
+        findViewById<TextView>(R.id.tvMeaning).text = item.nghia
+        
+        val tvPhonetic = findViewById<TextView>(R.id.tvPhonetic)
+        if (tvPhonetic != null) {
+            tvPhonetic.text = item.phien_am
+        }
+        
+        val tvTips = findViewById<TextView>(R.id.tvTips)
+        if (tvTips != null) {
+            tvTips.text = item.vi_du
+        }
     }
 
     private fun chuyenManHinhKetQua() {

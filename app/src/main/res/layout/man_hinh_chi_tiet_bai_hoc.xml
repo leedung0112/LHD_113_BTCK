@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="45%"
+                    android:text="100%"
                     android:textColor="#1A73E8"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -116,7 +116,7 @@
                 android:layout_height="4dp"
                 android:layout_marginTop="8dp"
                 android:max="100"
-                android:progress="45"
+                android:progress="100"
                 android:progressDrawable="@drawable/nen_thanh_tien_trinh" />
 
             <!-- Thẻ 1: Học từ vựng -->

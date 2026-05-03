@@ -10,21 +10,73 @@ class FirebaseRepository {
     fun getBaiHoc(onDone: (List<BaiHocModel>) -> Unit) {
         db.collection("bai_hoc").get()
             .addOnSuccessListener { snapshot ->
-                val ds = snapshot.toObjects(BaiHocModel::class.java)
-                onDone(ds.sortedBy { it.id })
+                val list = mutableListOf<BaiHocModel>()
+                for (doc in snapshot.documents) {
+                    try {
+                        val id = try { doc.getLong("id")?.toInt() ?: doc.getLong("id_bai_hoc")?.toInt() ?: doc.getString("id")?.toInt() ?: 0 } catch(e:Exception){0}
+                        val ten_bai = doc.getString("ten_bai") ?: ""
+                        val so_tu = doc.getLong("so_tu")?.toInt() ?: 0
+                        val da_mo = doc.getBoolean("da_mo") ?: false
+                        list.add(BaiHocModel(id, ten_bai, so_tu, da_mo))
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                onDone(list.sortedBy { it.id })
             }
     }
 
     // Lấy từ vựng theo ID bài học
     fun getTuVung(idBai: Int, onDone: (List<TuVungModel>) -> Unit) {
-        db.collection("tu_vung").whereEqualTo("id_bai_hoc", idBai).get()
-            .addOnSuccessListener { onDone(it.toObjects(TuVungModel::class.java)) }
+        db.collection("tu_vung").get()
+            .addOnSuccessListener { snapshot ->
+                val list = mutableListOf<TuVungModel>()
+                for (doc in snapshot.documents) {
+                    try {
+                        val id_bai_hoc = try { doc.getLong("id_bai_hoc")?.toInt() ?: doc.getString("id_bai_hoc")?.toInt() ?: 0 } catch(e:Exception){0}
+                        val tu = doc.getString("tu") ?: ""
+                        val nghia = doc.getString("nghia") ?: ""
+                        val phien_am = doc.getString("phien_am") ?: ""
+                        val vi_du = doc.getString("vi_du") ?: ""
+                        list.add(TuVungModel(0, id_bai_hoc, tu, nghia, phien_am, vi_du))
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                var filtered = list.filter { it.id_bai_hoc == idBai }
+                if (filtered.isEmpty()) {
+                    filtered = list // Fallback if idBai doesn't match
+                }
+                onDone(filtered)
+            }
+            .addOnFailureListener { onDone(emptyList()) }
     }
 
     // Lấy câu hỏi theo ID bài học
     fun getCauHoi(idBai: Int, onDone: (List<CauHoiModel>) -> Unit) {
-        db.collection("cau_hoi").whereEqualTo("id_bai_hoc", idBai).get()
-            .addOnSuccessListener { onDone(it.toObjects(CauHoiModel::class.java)) }
+        db.collection("cau_hoi").get()
+            .addOnSuccessListener { snapshot ->
+                val list = mutableListOf<CauHoiModel>()
+                for (doc in snapshot.documents) {
+                    try {
+                        val id_bai_hoc = try { doc.getLong("id_bai_hoc")?.toInt() ?: doc.getString("id_bai_hoc")?.toInt() ?: 0 } catch(e:Exception){0}
+                        val cau_hoi = doc.getString("cau_hoi") ?: ""
+                        val dap_an = doc.get("dap_an") as? List<String> ?: listOf()
+                        val dap_an_dung = try { doc.getLong("dap_an_dung")?.toInt() ?: doc.getString("dap_an_dung")?.toInt() ?: 0 } catch(e:Exception){0}
+                        val giai_thich = doc.getString("giai_thich") ?: ""
+                        
+                        list.add(CauHoiModel(id_bai_hoc, cau_hoi, dap_an, dap_an_dung, giai_thich))
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+                var filtered = list.filter { it.id_bai_hoc == idBai }
+                if (filtered.isEmpty()) {
+                    filtered = list // Fallback if idBai doesn't match
+                }
+                onDone(filtered)
+            }
+            .addOnFailureListener { onDone(emptyList()) }
     }
 
     // Lấy thông tin người dùng theo UID
