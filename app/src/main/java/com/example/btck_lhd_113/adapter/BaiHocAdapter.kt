@@ -15,6 +15,8 @@ class BaiHocAdapter(private val ds: List<BaiHocModel>, private val onClick: (Bai
     class VH(v: View) : RecyclerView.ViewHolder(v) {
         val ten: TextView = v.findViewById(R.id.txtTenBaiHoc)
         val st: TextView = v.findViewById(R.id.txtTrangThai)
+        val soTu: TextView = v.findViewById(R.id.txtSoTu)
+        val btnHoc: View = v.findViewById(R.id.btnHoc)
         val list: View = v.findViewById(R.id.vungBaiHoc)
     }
 
@@ -24,9 +26,23 @@ class BaiHocAdapter(private val ds: List<BaiHocModel>, private val onClick: (Bai
     override fun onBindViewHolder(h: VH, p: Int) {
         val item = ds[p]
         h.ten.text = item.ten_bai
-        h.st.text = if (item.da_mo) "SẴN SÀNG" else "CHƯA MỞ KHÓA"
-        h.st.setTextColor(if (item.da_mo) Color.BLUE else Color.GRAY)
-        h.list.setOnClickListener { if (item.da_mo) onClick(item) }
+        h.soTu.text = "${item.so_tu} từ"
+        
+        if (item.da_mo) {
+            h.st.text = "SẴN SÀNG"
+            h.st.setTextColor(Color.parseColor("#1D4ED8"))
+            h.btnHoc.visibility = View.VISIBLE
+            h.list.alpha = 1.0f
+            h.list.setOnClickListener { onClick(item) }
+        } else {
+            h.st.text = "CHƯA MỞ KHÓA"
+            h.st.setTextColor(Color.GRAY)
+            h.btnHoc.visibility = View.GONE
+            h.list.alpha = 0.6f
+            h.list.setOnClickListener {
+                // Có thể thông báo cho người dùng là bài học chưa mở
+            }
+        }
     }
 
     override fun getItemCount() = ds.size

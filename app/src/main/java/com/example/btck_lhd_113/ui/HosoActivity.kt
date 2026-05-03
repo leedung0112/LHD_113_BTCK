@@ -76,7 +76,7 @@ class HosoActivity : AppCompatActivity() {
         }
 
         itemNgonNgu.setOnClickListener {
-            Toast.makeText(this,"Tính năng Thông báo đang phát triển", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Tính năng Ngôn ngữ đang phát triển", Toast.LENGTH_SHORT).show()
         }
 
 
@@ -95,8 +95,7 @@ class HosoActivity : AppCompatActivity() {
 
         // Bottom Navigation: Tiến độ
         tabTienDo.setOnClickListener {
-            startActivity(Intent(this, TienDoActivity::class.java))
-            finish()
+            Toast.makeText(this, "Tính năng Tiến độ đang phát triển", Toast.LENGTH_SHORT).show()
         }
     }
 

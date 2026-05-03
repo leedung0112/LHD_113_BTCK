@@ -3,6 +3,7 @@ package com.example.btck_lhd_113.ui
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,7 @@ class TrangchuActivity : AppCompatActivity() {
         // 2. Load dữ liệu từ Repo
         repo.getBaiHoc { list ->
             rvBaiHoc.adapter = BaiHocAdapter(list) { baiHoc ->
-                val intent = Intent(this, HocTuVungActivity::class.java)
+                val intent = Intent(this, ChitietbaihocActivity::class.java)
                 intent.putExtra("ID_BAI_HOC", baiHoc.id)
                 intent.putExtra("TEN_BAI", baiHoc.ten_bai)
                 startActivity(intent)
@@ -38,7 +39,7 @@ class TrangchuActivity : AppCompatActivity() {
             startActivity(Intent(this, HosoActivity::class.java))
         }
         findViewById<LinearLayout>(R.id.btnTienDo).setOnClickListener {
-            startActivity(Intent(this, TienDoActivity::class.java))
+            Toast.makeText(this, "Tính năng Tiến độ đang phát triển", Toast.LENGTH_SHORT).show()
         }
     }
 }

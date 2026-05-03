@@ -38,6 +38,9 @@ class ChitietbaihocActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
+        val idBai = intent.getIntExtra("ID_BAI_HOC", 0)
+        val tenBai = intent.getStringExtra("TEN_BAI") ?: ""
+
         // Bấm nút Back ở góc trái trên cùng để quay lại
         imgBack.setOnClickListener {
             finish()
@@ -45,7 +48,10 @@ class ChitietbaihocActivity : AppCompatActivity() {
 
         // Bấm thẻ Học từ vựng -> Chuyển sang màn hình HocTuVungActivity (Mới)
         cardHocTuVung.setOnClickListener {
-            startActivity(Intent(this, HocTuVungActivity::class.java))
+            val intentHoc = Intent(this, HocTuVungActivity::class.java)
+            intentHoc.putExtra("ID_BAI_HOC", idBai)
+            intentHoc.putExtra("TEN_BAI", tenBai)
+            startActivity(intentHoc)
         }
 
         // Bấm thẻ Làm bài tập -> Chuyển sang QuizActivity
@@ -53,7 +59,10 @@ class ChitietbaihocActivity : AppCompatActivity() {
             Toast.makeText(this, "Chuyển sang làm bài tập", Toast.LENGTH_SHORT).show()
             // Kiểm tra xem QuizActivity có tồn tại không trước khi gọi
             try {
-                startActivity(Intent(this, TracNghiemActivity::class.java))
+                val intentTracNghiem = Intent(this, TracNghiemActivity::class.java)
+                intentTracNghiem.putExtra("ID_BAI_HOC", idBai)
+                intentTracNghiem.putExtra("TEN_BAI", tenBai)
+                startActivity(intentTracNghiem)
             } catch (e: Exception) {
                 Toast.makeText(this, "Màn hình bài tập đang được phát triển", Toast.LENGTH_SHORT).show()
             }

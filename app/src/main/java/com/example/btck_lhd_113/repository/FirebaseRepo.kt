@@ -8,8 +8,11 @@ class FirebaseRepository {
 
     // Lấy danh sách bài học (sắp xếp theo id)
     fun getBaiHoc(onDone: (List<BaiHocModel>) -> Unit) {
-        db.collection("bai_hoc").orderBy("id").get()
-            .addOnSuccessListener { onDone(it.toObjects(BaiHocModel::class.java)) }
+        db.collection("bai_hoc").get()
+            .addOnSuccessListener { snapshot ->
+                val ds = snapshot.toObjects(BaiHocModel::class.java)
+                onDone(ds.sortedBy { it.id })
+            }
     }
 
     // Lấy từ vựng theo ID bài học

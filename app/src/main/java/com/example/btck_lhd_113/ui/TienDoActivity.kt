@@ -1,6 +1,7 @@
 package com.example.btck_lhd_113.ui
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -33,7 +34,7 @@ class TienDoActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<TextView>(R.id.btnTrangChu).setOnClickListener { finish() }
+        findViewById<LinearLayout>(R.id.btnTrangChu).setOnClickListener { finish() }
     }
 
     private fun capNhatUI(daHoc: Int, tong: Int) {

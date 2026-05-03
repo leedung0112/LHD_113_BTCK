@@ -166,7 +166,7 @@
             android:layout_height="56dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/nen_nut_trang_vien_xanh"
-            android:text="Về trang chủ"
+            android:text="Về chi tiết bài học"
             android:textAllCaps="false"
             android:textColor="#1D4ED8"
             android:textSize="16sp"
@@ -190,6 +190,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
+            android:id="@+id/navTrangChu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -219,6 +220,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navBaiHoc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -239,6 +241,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navTienDo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -259,6 +262,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navCaiDat"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
