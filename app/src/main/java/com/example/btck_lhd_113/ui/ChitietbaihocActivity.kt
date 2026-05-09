@@ -70,7 +70,10 @@ class ChitietbaihocActivity : AppCompatActivity() {
 
         // Bấm thẻ Danh sách từ vựng
         cardDanhSachTuVung.setOnClickListener {
-            Toast.makeText(this, "Tính năng Danh sách từ vựng đang phát triển", Toast.LENGTH_SHORT).show()
+            val intentDanhSach = Intent(this, DanhSachTuVungActivity::class.java)
+            intentDanhSach.putExtra("ID_BAI_HOC", idBai)
+            intentDanhSach.putExtra("TEN_BAI", tenBai)
+            startActivity(intentDanhSach)
         }
 
         // Bấm nút Trang chủ ở thanh điều hướng dưới cùng

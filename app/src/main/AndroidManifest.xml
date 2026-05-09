@@ -30,6 +30,7 @@
         <activity android:name=".ui.HosoActivity" />
         <activity android:name=".ui.DoiMatKhauActivity" />
         <activity android:name=".ui.HocTuVungActivity" />
+        <activity android:name=".ui.DanhSachTuVungActivity" />
         <activity android:name=".ui.TracNghiemActivity" />
         <activity android:name=".ui.TienDoActivity" />
         <activity android:name=".ui.KetQuaActivity" />

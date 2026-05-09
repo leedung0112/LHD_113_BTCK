@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/nen_bo_goc_24"
+    android:elevation="2dp"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvTuVung"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Word"
+            android:textColor="#111827"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgPhonetic"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/nen_icon_hinh_tron"
+            android:backgroundTint="#F0F4F8"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_lock_silent_mode_off" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvPhienAm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="/phien_am/"
+        android:textColor="#1A73E8"
+        android:textSize="14sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/tvNghia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Nghĩa của từ"
+        android:textColor="#4B5563"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvViDu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Ví dụ minh họa"
+        android:textColor="#6B7280"
+        android:textSize="14sp" />
+
+</LinearLayout>
