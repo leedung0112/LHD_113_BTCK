@@ -1,7 +1,9 @@
 package com.example.btck_lhd_113.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +47,19 @@ class DanhSachTuVungActivity : AppCompatActivity() {
         // Sự kiện back
         imgBack.setOnClickListener {
             finish()
+        }
+
+        // 3. Nút điều hướng dưới cùng
+        findViewById<LinearLayout>(R.id.btnHome).setOnClickListener {
+            val intent = Intent(this, TrangchuActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+        }
+        findViewById<LinearLayout>(R.id.btnSettings).setOnClickListener {
+            startActivity(Intent(this, HosoActivity::class.java))
+        }
+        findViewById<LinearLayout>(R.id.btnTienDo).setOnClickListener {
+            Toast.makeText(this, "Tính năng Tiến độ đang phát triển", Toast.LENGTH_SHORT).show()
         }
     }
 }
