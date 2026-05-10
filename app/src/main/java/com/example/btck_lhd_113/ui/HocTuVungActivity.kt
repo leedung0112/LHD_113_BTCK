@@ -3,6 +3,7 @@ package com.example.btck_lhd_113.ui
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -44,6 +45,18 @@ class HocTuVungActivity : AppCompatActivity() {
             Toast.makeText(this, "Phát âm: ${dsTuVung[index].tu}", Toast.LENGTH_SHORT).show()
         }
         findViewById<ImageView>(R.id.ivClose).setOnClickListener { finish() }
+
+        findViewById<LinearLayout>(R.id.navHome).setOnClickListener {
+            startActivity(Intent(this, TrangchuActivity::class.java))
+        }
+
+        findViewById<LinearLayout>(R.id.navProgress).setOnClickListener {
+            startActivity(Intent(this, TienDoActivity::class.java))
+        }
+
+        findViewById<LinearLayout>(R.id.navSettings).setOnClickListener {
+            startActivity(Intent(this, HosoActivity::class.java))
+        }
     }
 
     private fun hienThi(pos: Int) {
@@ -72,4 +85,5 @@ class HocTuVungActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
 }

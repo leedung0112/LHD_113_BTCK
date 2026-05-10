@@ -299,7 +299,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/nen_dau_trang"
+                android:src="@android:drawable/ic_menu_gallery"
                 app:tint="#1976D2" />
 
             <TextView
@@ -321,7 +321,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/nen_thanh_tien_trinh"
+                android:src="@android:drawable/ic_menu_sort_by_size"
                 app:tint="#757575" />
 
             <TextView
@@ -343,7 +343,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/nen_bieu_tuong_menu"
+                android:src="@android:drawable/ic_menu_preferences"
                 app:tint="#757575" />
 
             <TextView

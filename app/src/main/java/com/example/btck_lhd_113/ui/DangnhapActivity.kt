@@ -83,7 +83,7 @@ class DangnhapActivity : AppCompatActivity() {
                         finish()
                     }
                     .addOnFailureListener {
-                        Toast.makeText(this, "Lỗi: ${it.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Tài khoản mật khẩu không chính xác", Toast.LENGTH_SHORT).show()
                     }
             }
         }

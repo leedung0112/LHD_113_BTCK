@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.google.common.io.LineReader
 import com.google.firebase.auth.FirebaseAuth
 
 class KetQuaActivity : AppCompatActivity() {
@@ -88,11 +89,13 @@ class KetQuaActivity : AppCompatActivity() {
         
         findViewById<LinearLayout>(R.id.navBaiHoc).setOnClickListener {
             // Đã ở phần bài học hoặc về trang chủ
-            val intent = Intent(this, TrangchuActivity::class.java)
+            val intent = Intent(this, ChitietbaihocActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
             finish()
         }
+
+
 
         findViewById<LinearLayout>(R.id.navTienDo).setOnClickListener {
             Toast.makeText(this, "Tính năng Tiến độ đang phát triển", Toast.LENGTH_SHORT).show()
